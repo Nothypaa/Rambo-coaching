@@ -35,8 +35,11 @@
    ============================================================ */
 
 (function () {
-  // --- Photos to show (add more as the coach supplies them) ---
-  const GALLERY_IMAGES = [
+  // --- Photos to show ---
+  // The list is loaded from the CMS-editable data file (data/gallery.json)
+  // just before the carousel starts; these are the fallback defaults used
+  // if that file can't be read.
+  let GALLERY_IMAGES = [
     'assets/images/gallery/gallery-1.jpg',
     'assets/images/gallery/gallery-2.jpg',
     'assets/images/gallery/gallery-3.jpg',
@@ -326,13 +329,28 @@
     }, 150);
   });
 
-  // Init
-  configure();
-  build();
-  alignBelt();
-  render();
-  if (reduceMotion) {
-    paused = true; // hold still, but keep the curve
+  // Init — start the carousel once the geometry is set up.
+  function start() {
+    configure();
+    build();
+    alignBelt();
+    render();
+    if (reduceMotion) {
+      paused = true; // hold still, but keep the curve
+    }
+    rafId = requestAnimationFrame(tick);
   }
-  rafId = requestAnimationFrame(tick);
+
+  // Load the (CMS-editable) photo list, then start. Falls back to the
+  // built-in defaults above if the data file is missing or malformed.
+  fetch('data/gallery.json')
+    .then((r) => (r.ok ? r.json() : Promise.reject()))
+    .then((data) => {
+      const list = (data && Array.isArray(data.images) ? data.images : [])
+        .map((it) => (typeof it === 'string' ? it : it && it.image))
+        .filter(Boolean);
+      if (list.length) GALLERY_IMAGES = list;
+    })
+    .catch(() => { /* keep the built-in defaults */ })
+    .finally(start);
 })();

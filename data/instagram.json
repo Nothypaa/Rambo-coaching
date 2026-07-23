@@ -1,0 +1,10 @@
+{
+  "posts": [
+    { "image": "assets/images/gallery/gallery-1.jpg", "link": "https://www.instagram.com/rambo_coaching" },
+    { "image": "assets/images/gallery/gallery-2.jpg", "link": "https://www.instagram.com/rambo_coaching" },
+    { "image": "assets/images/gallery/gallery-3.jpg", "link": "https://www.instagram.com/rambo_coaching" },
+    { "image": "assets/images/gallery/gallery-4.jpg", "link": "https://www.instagram.com/rambo_coaching" },
+    { "image": "assets/images/gallery/gallery-1.jpg", "link": "https://www.instagram.com/rambo_coaching" },
+    { "image": "assets/images/gallery/gallery-2.jpg", "link": "https://www.instagram.com/rambo_coaching" }
+  ]
+}

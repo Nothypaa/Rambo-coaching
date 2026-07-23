@@ -62,6 +62,41 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// Instagram feed — rendered from the CMS-editable data file
+// (data/instagram.json). Each post is an image linking to Instagram, with
+// the hover overlay + icon. Falls back to an empty feed if the file is
+// missing or malformed.
+const instagramFeed = document.querySelector('#instagramFeed');
+if (instagramFeed) {
+  const INSTAGRAM_ICON =
+    '<svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+    '<rect x="2" y="2" width="20" height="20" rx="5"/>' +
+    '<circle cx="12" cy="12" r="4"/>' +
+    '<circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>' +
+    '</svg>';
+  const PROFILE_URL = 'https://www.instagram.com/rambo_coaching';
+
+  fetch('data/instagram.json')
+    .then((r) => (r.ok ? r.json() : Promise.reject()))
+    .then((data) => {
+      const posts = data && Array.isArray(data.posts) ? data.posts : [];
+      instagramFeed.innerHTML = posts
+        .filter((p) => p && p.image)
+        .map((p) => {
+          const link = p.link || PROFILE_URL;
+          return (
+            '<a href="' + link + '" class="instagram-post" target="_blank" ' +
+            'rel="noopener noreferrer" aria-label="Voir la publication sur Instagram">' +
+            '<img src="' + p.image + '" alt="Publication Instagram Rambo Coaching">' +
+            '<span class="instagram-post-overlay">' + INSTAGRAM_ICON + '</span>' +
+            '</a>'
+          );
+        })
+        .join('');
+    })
+    .catch(() => { /* leave the feed empty on failure */ });
+}
+
 // Phone inputs — format digits into pairs as the user types (e.g.
 // "0612345678" -> "06 12 34 56 78") so the number is easier to read.
 document.querySelectorAll('input[type="tel"]').forEach((input) => {
