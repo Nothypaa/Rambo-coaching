@@ -1,0 +1,54 @@
+backend:
+  name: github
+  repo: Nothypaa/Rambo-coaching
+  branch: main
+  # OAuth login handled by the serverless functions in /api on Vercel.
+  base_url: https://rambo-coaching.vercel.app
+  auth_endpoint: /api/auth
+
+# Where images uploaded through the CMS are stored / referenced from.
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+site_url: https://rambo-coaching.vercel.app
+locale: "fr"
+
+collections:
+  - name: "transformations"
+    label: "Nos Transformations (photos)"
+    files:
+      - name: "gallery"
+        label: "Galerie de photos"
+        file: "data/gallery.json"
+        editor:
+          preview: false
+        fields:
+          - label: "Photos"
+            name: "images"
+            label_singular: "Photo"
+            widget: "list"
+            summary: "{{fields.image}}"
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+
+  - name: "instagram"
+    label: "Publications Instagram"
+    files:
+      - name: "instagram"
+        label: "Feed Instagram"
+        file: "data/instagram.json"
+        editor:
+          preview: false
+        fields:
+          - label: "Publications"
+            name: "posts"
+            label_singular: "Publication"
+            widget: "list"
+            summary: "{{fields.image}}"
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - label: "Lien vers la publication"
+                name: "link"
+                widget: "string"
+                required: false
+                hint: "Colle l'URL de la publication Instagram (optionnel)"
