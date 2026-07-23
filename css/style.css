@@ -1,0 +1,1558 @@
+:root {
+  --color-red: #9b0000;
+  --color-dark: #1a1a1a;
+  --color-white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-white);
+  color: var(--color-dark);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-red);
+  border-radius: 999px;
+  border: 3px solid var(--color-white);
+}
+
+html {
+  scrollbar-color: var(--color-red) var(--color-white);
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1.5rem 2rem;
+  background-color: transparent;
+  box-shadow: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar-logo {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.navbar.is-scrolled .navbar-logo {
+  opacity: 1;
+  visibility: visible;
+}
+
+.navbar.is-scrolled {
+  background-color: var(--color-white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-logo img {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+  margin-left: auto;
+}
+
+.navbar-links a {
+  color: var(--color-dark);
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+}
+
+.navbar-links a:hover {
+  color: var(--color-red);
+}
+
+.navbar-socials {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-left: 1.5rem;
+}
+
+.navbar-socials a {
+  color: var(--color-dark);
+  display: flex;
+  transition: color 0.2s ease;
+}
+
+.navbar-socials a:hover {
+  color: var(--color-red);
+}
+
+.navbar-socials-mobile {
+  display: none;
+}
+
+.navbar-cta {
+  display: inline-block;
+  margin-left: 2rem;
+  padding: 0.6rem 1.4rem;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.navbar-cta:hover {
+  opacity: 0.85;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+}
+
+.navbar-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-dark);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.navbar-toggle.is-active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar-toggle.is-active span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggle.is-active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .navbar-logo {
+    left: 1rem;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar-cta {
+    display: none;
+  }
+
+  .navbar-socials {
+    display: none;
+  }
+
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 0 2rem;
+    background-color: var(--color-white);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    z-index: 50;
+  }
+
+  .navbar-links.is-open {
+    display: flex;
+  }
+
+  .navbar-links a {
+    font-size: 1rem;
+  }
+
+  .navbar-socials-mobile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .navbar-socials-mobile a {
+    color: var(--color-dark);
+    display: flex;
+    transition: color 0.2s ease;
+  }
+
+  .navbar-socials-mobile a:hover {
+    color: var(--color-red);
+  }
+}
+
+.hero-wrapper {
+  padding: 0 2rem 1.5rem;
+  opacity: 0;
+  animation: heroFadeIn 1s ease forwards;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-wrapper {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+.hero {
+  position: relative;
+  /* Sized to fit alongside the navbar + wrapper padding within a
+     single viewport height, so the whole hero card is visible
+     without needing to scroll. */
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem 4rem;
+  text-align: left;
+  background-image: url('../assets/images/hero-bg.jpeg');
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-dark);
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  margin-top: -9rem;
+  transform: translateY(3rem);
+}
+
+.hero-logo {
+  height: 96px;
+  width: auto;
+  display: block;
+  margin-top: -8.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-reviews {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.hero-reviews-google {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.hero-reviews-stars {
+  color: #ffc107;
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+}
+
+.hero-reviews-text {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--color-white);
+}
+
+.hero-content h1 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-white);
+  margin-bottom: 0.75rem;
+}
+
+.hero-content .hero-tagline {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
+
+.hero-cta {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.9rem 2rem;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  border-radius: 999px;
+  transition: opacity 0.2s ease;
+}
+
+.hero-cta:hover {
+  opacity: 0.85;
+}
+
+.qualify-cta {
+  align-self: flex-start;
+}
+
+.hero-form {
+  position: relative;
+  z-index: 2;
+  background-color: var(--color-white);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 380px;
+  flex-shrink: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.hero-form h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--color-dark);
+  margin-bottom: 1.25rem;
+}
+
+.hero-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.hero-form input,
+.hero-form textarea {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.95rem;
+  color: var(--color-dark);
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  resize: none;
+}
+
+.hero-form input:focus,
+.hero-form textarea:focus {
+  outline: none;
+  border-color: var(--color-red);
+}
+
+.hero-form button {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-white);
+  background-color: var(--color-red);
+  border: none;
+  border-radius: 8px;
+  padding: 0.85rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.hero-form button:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 1024px) {
+  .hero-form {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-wrapper {
+    padding: 1rem;
+  }
+
+  .hero {
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 16px;
+  }
+
+  .hero-content h1 br {
+    display: none;
+  }
+
+  .hero-logo {
+    display: none;
+  }
+}
+
+/* ===== Qualify section (\"is this for you?\") ===== */
+.qualify-wrapper {
+  padding: 3rem 1rem;
+}
+
+.qualify-card {
+  position: relative;
+  background: linear-gradient(135deg, #1a1a1a 0%, #3a0000 100%);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.qualify-visual {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.qualify-main-photo {
+  height: 100%;
+  width: auto;
+  max-width: 80%;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.35);
+}
+
+.qualify-float {
+  position: absolute;
+  width: 140px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 3px solid var(--color-white);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.qualify-float-1 {
+  left: 0.75rem;
+  bottom: 0.75rem;
+  transform: rotate(-6deg);
+}
+
+.qualify-float-2 {
+  left: 7.5rem;
+  bottom: 1.75rem;
+  transform: rotate(5deg);
+}
+
+.qualify-content {
+  padding: 2rem 1.5rem 2.5rem;
+}
+
+.qualify-content h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--color-white);
+  margin-bottom: 1.5rem;
+}
+
+.qualify-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.qualify-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--color-white);
+  line-height: 1.4;
+}
+
+.qualify-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--color-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+  padding: 6px;
+}
+
+.qualify-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+/* Desktop-only qualify-section fine-tuning — kept isolated so it never touches mobile */
+@media (min-width: 769px) {
+  .qualify-wrapper {
+    padding: 2rem 2rem 4rem;
+  }
+
+  .qualify-card {
+    flex-direction: row;
+    align-items: stretch;
+    border-radius: 24px;
+    overflow: visible;
+    min-height: 480px;
+  }
+
+  .qualify-visual {
+    flex: 0 0 42%;
+    height: auto;
+    overflow: visible;
+    justify-content: flex-start;
+  }
+
+  .qualify-main-photo {
+    position: absolute;
+    left: 3rem;
+    bottom: 1.5rem;
+    height: calc(100% + 2.5rem);
+    max-width: none;
+  }
+
+  .qualify-float {
+    width: 320px;
+    height: 250px;
+  }
+
+  .qualify-float-1 {
+    left: 1rem;
+    bottom: -2rem;
+  }
+
+  .qualify-float-2 {
+    left: 16rem;
+    bottom: -4.5rem;
+    width: 260px;
+    height: 200px;
+  }
+
+  .qualify-content {
+    flex: 1;
+    padding: 3.5rem 3.5rem 3.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .qualify-content h2 {
+    font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+    max-width: 600px;
+  }
+
+  .qualify-list li {
+    font-size: 1.05rem;
+    align-items: center;
+  }
+
+  .qualify-icon {
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+    margin-top: 0;
+  }
+}
+
+/* Mobile-only qualify-section adjustments — kept isolated so it never touches desktop */
+@media (max-width: 768px) {
+  .qualify-card {
+    flex-direction: column-reverse;
+  }
+
+  .qualify-visual {
+    height: 300px;
+  }
+
+  .qualify-main-photo {
+    display: none;
+  }
+
+  .qualify-float {
+    width: 85%;
+    max-width: 360px;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    border: none;
+  }
+
+  .qualify-float-1 {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 2rem;
+  }
+
+  .qualify-float-2 {
+    display: none;
+  }
+}
+
+/* ===== Curved photo carousel ===== */
+.gallery {
+  background-color: var(--color-white);
+  padding: 4rem 0;
+  overflow: hidden;
+}
+
+.gallery-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-dark);
+  margin-bottom: 2.5rem;
+}
+
+.curved-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* height is set by JS to fit the photos + curve */
+  /* single shared vanishing point = real curved-screen depth:
+     photos pushed back in Z genuinely shrink and converge */
+  perspective: 1100px;
+  perspective-origin: 50% 50%;
+}
+
+.cc-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: var(--color-dark);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.22);
+  will-change: transform, filter;
+  backface-visibility: hidden;
+}
+
+.cc-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.2s ease;
+}
+
+.cc-card:hover img {
+  filter: brightness(0.75);
+}
+
+/* Zoom hint badge: signals the photo is clickable (visible on touch
+   too, since :hover never fires there) */
+.cc-zoom-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: var(--color-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.cc-card:hover .cc-zoom-hint {
+  transform: scale(1.15);
+  background-color: var(--color-white);
+}
+
+@media (max-width: 768px) {
+  .cc-zoom-hint {
+    width: 28px;
+    height: 28px;
+  }
+
+  .cc-zoom-hint svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery {
+    padding: 2.5rem 0;
+  }
+}
+
+/* ===== Lightbox (click a gallery photo to enlarge) ===== */
+.cc-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: rgba(26, 26, 26, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.cc-lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cc-lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.cc-lightbox img {
+  display: block;
+  max-width: 100%;
+  max-height: 75vh;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.cc-lightbox-cta {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-radius: 999px;
+  text-align: center;
+  transition: opacity 0.2s ease;
+}
+
+.cc-lightbox-cta:hover {
+  opacity: 0.85;
+}
+
+.cc-lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  color: var(--color-dark);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.cc-lightbox-close:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .cc-lightbox {
+    padding: 1rem;
+  }
+
+  .cc-lightbox img {
+    max-height: 60vh;
+  }
+
+  .cc-lightbox-cta {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .cc-lightbox-close {
+    top: 1rem;
+    right: 1rem;
+    width: 38px;
+    height: 38px;
+    font-size: 1.5rem;
+  }
+}
+
+/* ===== Contact modal (popup) ===== */
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: rgba(26, 26, 26, 0.85);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.contact-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.contact-modal-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #3a0000 100%);
+}
+
+.contact-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  color: var(--color-dark);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.contact-modal-close:hover {
+  opacity: 0.8;
+}
+
+.contact-modal-panel {
+  padding: 2.5rem 2rem;
+}
+
+.contact-modal-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--color-white);
+  margin-bottom: 1.5rem;
+}
+
+.contact-modal-subtitle {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+}
+
+.contact-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-modal-form input {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  color: var(--color-white);
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.6rem 0;
+}
+
+.contact-modal-form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.contact-modal-form input:focus {
+  outline: none;
+  border-bottom-color: var(--color-red);
+}
+
+.contact-modal-form button {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.9rem 2rem;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  border: none;
+  border-radius: 999px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.contact-modal-form button:hover {
+  opacity: 0.85;
+}
+
+.contact-modal-phone {
+  margin-top: 1.75rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-modal-phone a {
+  color: var(--color-white);
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.contact-modal-phone a:hover {
+  color: var(--color-red);
+}
+
+.contact-modal-image {
+  display: none;
+}
+
+.contact-modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Lock background scroll while the modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Desktop-only contact-modal layout — kept isolated so it never touches mobile */
+@media (min-width: 769px) {
+  .contact-modal-card {
+    flex-direction: row;
+    max-width: 900px;
+  }
+
+  .contact-modal-panel {
+    flex: 1 1 55%;
+    padding: 3rem 2.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .contact-modal-image {
+    display: block;
+    flex: 1 1 45%;
+  }
+}
+
+/* ===== Instagram feed ===== */
+.instagram {
+  padding: 1rem;
+  /* Clip the oversized ghost watermark so it never causes horizontal scroll. */
+  overflow: hidden;
+}
+
+.instagram-header {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+}
+
+.instagram-eyebrow {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  margin-bottom: 0.75rem;
+}
+
+.instagram-eyebrow-line {
+  width: 26px;
+  height: 2px;
+  background-color: var(--color-red);
+}
+
+.instagram-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Oversized outline-only watermark sitting behind the real heading. */
+.instagram-ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(3.5rem, 13vw, 9rem);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.09);
+  pointer-events: none;
+}
+
+.instagram-heading {
+  position: relative;
+  z-index: 1;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--color-dark);
+}
+
+.instagram-handle {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  color: var(--color-red);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.instagram-handle:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.instagram-feed {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background-color: var(--color-white);
+}
+
+.instagram-post {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.instagram-post img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.instagram-post-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  background-color: rgba(155, 0, 0, 0.75);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.instagram-post:hover .instagram-post-overlay {
+  opacity: 1;
+}
+
+.instagram-post:hover img {
+  transform: scale(1.05);
+}
+
+/* Desktop-only Instagram-feed layout — kept isolated so it never touches mobile */
+@media (min-width: 769px) {
+  .instagram {
+    padding: 2rem;
+  }
+
+  .instagram-header {
+    padding: 3.5rem 1rem 3rem;
+  }
+
+  .instagram-feed {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* ===== Scroll-driven hero "un-zoom" (desktop only) =====
+   As the user scrolls from the hero into "Nos Transformations", the hero
+   is pinned to the viewport while the gallery (and everything after it)
+   slides up over it like a curtain. The hero card scales down and its
+   corners round off. Everything is driven live by scroll position via the
+   --hero-scale / --hero-progress custom properties set in JS, so it
+   reverses smoothly when scrolling back up. */
+@media (min-width: 769px) {
+  /* Pin the hero: sticky, full viewport height, clipped. */
+  .hero-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  /* The hero card shrinks and rounds as progress -> 1. */
+  .hero {
+    transform: scale(var(--hero-scale, 1));
+    transform-origin: center center;
+    border-radius: calc(24px + var(--hero-progress, 0) * 20px);
+    will-change: transform;
+  }
+
+  /* "Nos Transformations" is the curtain edge: opaque, stacked above the
+     pinned hero, with a rounded top and a soft top-edge shadow so it reads
+     as a distinct panel sliding over the hero. */
+  .gallery {
+    position: relative;
+    z-index: 2;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    box-shadow: 0 -18px 40px rgba(0, 0, 0, 0.18);
+  }
+
+  /* Sections after the curtain must also sit above the pinned hero and
+     stay opaque, so the hero never shows through once it's covered. */
+  .qualify-wrapper,
+  .instagram {
+    position: relative;
+    z-index: 2;
+    background-color: var(--color-white);
+  }
+}
+
+/* ===== Pricing / membership ===== */
+.pricing {
+  background-color: var(--color-white);
+  padding: 4rem 1.5rem;
+}
+
+.pricing-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.pricing-title {
+  position: relative;
+  display: block;
+  margin-bottom: 2.5rem;
+}
+
+/* Oversized outline-only watermark, anchored to the right of the section. */
+.pricing-ghost {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 0;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(4rem, 13vw, 11rem);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.08);
+  pointer-events: none;
+}
+
+.pricing-heading {
+  position: relative;
+  z-index: 1;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 5vw, 3.25rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.pricing-heading span {
+  display: block;
+}
+
+.pricing-heading-muted {
+  color: rgba(26, 26, 26, 0.3);
+}
+
+.pricing-heading-bold {
+  color: var(--color-dark);
+}
+
+.pricing-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.plan-card {
+  display: flex;
+  flex-direction: column-reverse;
+  background: var(--color-red);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+/* Left card — light/white aesthetic */
+.plan-card--light {
+  background: var(--color-white);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+/* Right card — solid brand red (same red as the CTA buttons); flip the CTA
+   and check icons to white so they stay visible on the red background. */
+.plan-card--red .plan-desc {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.plan-card--red .plan-period {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.plan-card--red .plan-feature-icon {
+  color: var(--color-white);
+}
+
+.plan-card--red .plan-cta {
+  background-color: var(--color-white);
+  color: var(--color-red);
+}
+
+.plan-card--light .plan-name,
+.plan-card--light .plan-amount {
+  color: var(--color-dark);
+}
+
+.plan-card--light .plan-desc {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.plan-card--light .plan-period {
+  color: rgba(26, 26, 26, 0.45);
+}
+
+.plan-card--light .plan-features li {
+  color: rgba(26, 26, 26, 0.85);
+}
+
+.plan-content {
+  padding: 2rem;
+}
+
+.plan-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.plan-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  color: var(--color-white);
+  margin-bottom: 0.4rem;
+}
+
+.plan-desc {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1.5rem;
+}
+
+.plan-price {
+  margin-bottom: 1.5rem;
+}
+
+.plan-amount {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 2.75rem;
+  line-height: 1;
+  color: var(--color-white);
+}
+
+.plan-period {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.plan-cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.9rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  transition: opacity 0.2s ease;
+}
+
+.plan-cta:hover {
+  opacity: 0.85;
+}
+
+.plan-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.plan-feature-icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--color-red);
+}
+
+.pricing-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: var(--color-red);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 2rem;
+}
+
+.pricing-custom h3 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  color: var(--color-white);
+  margin-bottom: 0.75rem;
+}
+
+.pricing-custom p {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 620px;
+}
+
+.pricing-custom-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  align-self: flex-start;
+  padding: 0.9rem 1.75rem;
+  border: 1px solid var(--color-white);
+  border-radius: 999px;
+  background-color: var(--color-white);
+  color: var(--color-red);
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pricing-custom-cta:hover {
+  background-color: transparent;
+  color: var(--color-white);
+}
+
+/* Desktop-only pricing layout — kept isolated so it never touches mobile */
+@media (min-width: 769px) {
+  /* Sit above the pinned hero during the scroll effect (opaque dark bg). */
+  .pricing {
+    position: relative;
+    z-index: 2;
+    padding: 5rem 2rem;
+  }
+
+  .pricing-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .plan-card {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .plan-content {
+    flex: 1;
+    padding: 2.25rem;
+  }
+
+  /* Fixed portrait aspect-ratio box, vertically centered — the image keeps
+     its own proportions and never stretches to the (content-driven) card
+     height. object-fit: cover (from the base rule) fills the box cleanly. */
+  .plan-image {
+    flex: 0 0 42%;
+    align-self: center;
+    width: auto;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    max-height: 460px;
+    border-radius: 16px;
+    margin: 1rem 1rem 1rem 0;
+    object-position: center 20%;
+  }
+
+  .pricing-custom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 3rem;
+  }
+
+  /* Reset the mobile flex-start alignment so the button centers vertically
+     against the text in the desktop row layout. */
+  .pricing-custom-cta {
+    align-self: center;
+  }
+}

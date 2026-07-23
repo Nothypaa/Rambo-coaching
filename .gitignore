@@ -1,0 +1,18 @@
+# Claude Code local settings (personal, not for the repo)
+.claude/
+
+# Debug / scratch preview files
+index.debug.html
+*.debug.html
+scratch_*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+
+# Node (if tooling is added later)
+node_modules/
