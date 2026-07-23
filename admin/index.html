@@ -11,7 +11,12 @@
   <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
 </head>
 <body>
-  <!-- Decap CMS — the admin panel. Config is loaded from /admin/config.yml -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Decap CMS — the admin panel. Config is loaded from /admin/config.yml.
+       Pinned to an exact version (not a "^" range) so a new Decap release
+       can never silently break this panel again — 3.15.0 shipped with a
+       same-day list-widget crash (decaporg/decap-cms#7906–#7913); 3.14.0
+       is the last version before that regression. Bump this deliberately
+       after checking release notes, not automatically. -->
+  <script src="https://unpkg.com/decap-cms@3.14.0/dist/decap-cms.js"></script>
 </body>
 </html>
