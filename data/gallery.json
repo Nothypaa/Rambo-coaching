@@ -1,8 +1,16 @@
 {
   "images": [
-    { "image": "assets/images/gallery/gallery-1.jpg" },
-    { "image": "assets/images/gallery/gallery-2.jpg" },
-    { "image": "assets/images/gallery/gallery-3.jpg" },
-    { "image": "assets/images/gallery/gallery-4.jpg" }
+    {
+      "image": "assets/images/gallery/gallery-2.jpg"
+    },
+    {
+      "image": "assets/images/gallery/gallery-1.jpg"
+    },
+    {
+      "image": "assets/images/gallery/gallery-3.jpg"
+    },
+    {
+      "image": "assets/images/gallery/gallery-4.jpg"
+    }
   ]
 }
