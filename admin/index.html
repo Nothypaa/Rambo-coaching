@@ -9,6 +9,9 @@
        trailing slash), which would make a relative "config.yml" resolve
        to /config.yml (404) instead of /admin/config.yml. -->
   <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
+  <!-- Brand-color override for the admin UI (top nav + sidebar). See the
+       file for how these hooks were found and why they're safe to rely on. -->
+  <link rel="stylesheet" href="/admin/admin-styles.css">
 </head>
 <body>
   <!-- Decap CMS — the admin panel. Config is loaded from /admin/config.yml.
