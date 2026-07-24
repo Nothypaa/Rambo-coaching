@@ -1105,7 +1105,7 @@ body.modal-open {
   text-transform: uppercase;
   white-space: nowrap;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.09);
+  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.16);
   pointer-events: none;
 }
 
@@ -1273,7 +1273,7 @@ body.modal-open {
   text-transform: uppercase;
   white-space: nowrap;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.08);
+  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.15);
   pointer-events: none;
 }
 
