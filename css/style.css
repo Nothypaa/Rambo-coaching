@@ -331,16 +331,6 @@ html {
   color: var(--color-white);
 }
 
-.hero-content h1 {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-white);
-  margin-bottom: 0.75rem;
-}
-
 .hero-content .hero-tagline {
   font-family: 'Oswald', sans-serif;
   font-weight: 600;
@@ -348,6 +338,7 @@ html {
   line-height: 1.15;
   text-transform: uppercase;
   color: var(--color-white);
+  margin-bottom: 0.75rem;
 }
 
 .hero-cta {
@@ -453,10 +444,6 @@ html {
     padding: 2rem;
     text-align: center;
     border-radius: 16px;
-  }
-
-  .hero-content h1 br {
-    display: none;
   }
 
   .hero-logo {
@@ -1554,5 +1541,210 @@ body.modal-open {
      against the text in the desktop row layout. */
   .pricing-custom-cta {
     align-self: center;
+  }
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  padding: 3rem 1.5rem 2rem;
+}
+
+.footer-cta {
+  text-align: center;
+  padding: 1rem 0 3rem;
+}
+
+.footer-cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  margin-bottom: 1rem;
+}
+
+.footer-cta-line {
+  width: 26px;
+  height: 2px;
+  background-color: var(--color-red);
+}
+
+.footer-cta-heading {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 6vw, 3.25rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--color-white);
+  margin-bottom: 1.75rem;
+}
+
+.footer-cta-btn {
+  display: inline-block;
+  padding: 0.9rem 2.25rem;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  transition: opacity 0.2s ease;
+}
+
+.footer-cta-btn:hover {
+  opacity: 0.85;
+}
+
+.footer-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-brand {
+  max-width: 340px;
+}
+
+.footer-logo {
+  height: 56px;
+  width: auto;
+  margin-bottom: 1rem;
+}
+
+.footer-brand p {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-col h3 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+
+.footer-col a {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  margin-bottom: 0.6rem;
+  transition: color 0.2s ease;
+}
+
+.footer-col a:hover {
+  color: var(--color-red);
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.footer-socials a {
+  display: inline-flex;
+  margin-bottom: 0;
+  color: var(--color-white);
+}
+
+.footer-socials a:hover {
+  color: var(--color-red);
+}
+
+.footer-bottom {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== Scroll-driven Instagram "un-zoom" into the footer (desktop only) =====
+   Mirrors the hero -> gallery transition so the two feel like one continuous
+   visual language: the Instagram section pins to the viewport while the
+   footer rises over it like a curtain, and the pinned content scales down
+   (100% -> 85%) and rounds off (24px -> 44px). Driven by --insta-scale /
+   --insta-progress (set in js/main.js) using the same formula as the hero.
+   Both the pinned section and the footer are >= 100vh so the page has enough
+   scroll room for the curtain to fully rise. */
+@media (min-width: 769px) {
+  /* Pin the Instagram section full-height, clipped, above the pinned hero. */
+  .instagram {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  /* The pinned content shrinks and rounds as the footer covers it. */
+  .instagram-inner {
+    width: 100%;
+    transform: scale(var(--insta-scale, 1));
+    transform-origin: center center;
+    border-radius: calc(24px + var(--insta-progress, 0) * 20px);
+    will-change: transform;
+  }
+
+  /* The footer is the curtain edge: full-height, stacked above the pinned
+     Instagram section, rounded top + soft top-edge shadow. */
+  .site-footer {
+    position: relative;
+    z-index: 3;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 3rem 2rem;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    box-shadow: 0 -18px 40px rgba(0, 0, 0, 0.18);
+  }
+
+  /* CTA fills the space above the footer columns and centers within it. */
+  .footer-cta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+  }
+
+  .footer-main {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+
+  .footer-brand {
+    flex: 1;
   }
 }

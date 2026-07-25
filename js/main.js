@@ -107,51 +107,70 @@ document.querySelectorAll('input[type="tel"]').forEach((input) => {
   });
 });
 
-// Scroll-driven hero "un-zoom" (desktop only).
-// As the gallery ("Nos Transformations") slides up over the pinned hero,
-// the hero scales down and its corners round off. This is driven purely by
-// scroll position — a 0..1 progress based on how far the gallery's top has
-// crept over the viewport — so it reverses smoothly on scroll-up. Throttled
-// with requestAnimationFrame and applied via CSS custom properties so the
-// scaling stays GPU-accelerated instead of forcing layout.
-const heroEl = document.querySelector('.hero');
-const galleryEl = document.querySelector('.gallery');
-const heroZoomMq = window.matchMedia('(min-width: 769px)');
+// Scroll-driven "un-zoom" curtain transitions (desktop only).
+// A pinned section holds still while the next section — the "curtain" — rises
+// up over it; the pinned content scales down (100% -> 85%) and its corners
+// round off (24px -> 44px, done in CSS from the same --*-progress value). It's
+// driven purely by scroll position — a 0..1 progress based on how far the
+// curtain's top has crept up the viewport — so it reverses smoothly on
+// scroll-up. Used for both hero->gallery and instagram->footer so the two
+// transitions share one easing/scale/radius. Throttled with
+// requestAnimationFrame and applied via CSS custom properties so the scaling
+// stays GPU-accelerated instead of forcing layout.
+const unzoomMq = window.matchMedia('(min-width: 769px)');
 
-if (heroEl && galleryEl) {
-  let heroZoomTicking = false;
+function setupPinnedUnzoom(scaleEl, curtainEl, prefix) {
+  if (!scaleEl || !curtainEl) return;
 
-  function updateHeroZoom() {
+  const scaleVar = '--' + prefix + '-scale';
+  const progressVar = '--' + prefix + '-progress';
+  let ticking = false;
+
+  function update() {
     // Desktop only — clear the properties on mobile so nothing lingers.
-    if (!heroZoomMq.matches) {
-      heroEl.style.removeProperty('--hero-scale');
-      heroEl.style.removeProperty('--hero-progress');
+    if (!unzoomMq.matches) {
+      scaleEl.style.removeProperty(scaleVar);
+      scaleEl.style.removeProperty(progressVar);
       return;
     }
 
-    const galleryTop = galleryEl.getBoundingClientRect().top;
+    const curtainTop = curtainEl.getBoundingClientRect().top;
     const viewportHeight = window.innerHeight;
 
-    // 0 when the gallery is still below the fold, 1 once its top reaches
-    // the top of the viewport (i.e. it fully covers the hero).
-    let progress = (viewportHeight - galleryTop) / viewportHeight;
+    // 0 when the curtain is still below the fold, 1 once its top reaches the
+    // top of the viewport (i.e. it fully covers the pinned section).
+    let progress = (viewportHeight - curtainTop) / viewportHeight;
     progress = Math.min(1, Math.max(0, progress));
 
-    heroEl.style.setProperty('--hero-progress', progress.toFixed(4));
-    heroEl.style.setProperty('--hero-scale', (1 - progress * 0.15).toFixed(4));
+    scaleEl.style.setProperty(progressVar, progress.toFixed(4));
+    scaleEl.style.setProperty(scaleVar, (1 - progress * 0.15).toFixed(4));
   }
 
-  function requestHeroZoom() {
-    if (!heroZoomTicking) {
+  function request() {
+    if (!ticking) {
       window.requestAnimationFrame(() => {
-        updateHeroZoom();
-        heroZoomTicking = false;
+        update();
+        ticking = false;
       });
-      heroZoomTicking = true;
+      ticking = true;
     }
   }
 
-  window.addEventListener('scroll', requestHeroZoom, { passive: true });
-  window.addEventListener('resize', requestHeroZoom);
-  updateHeroZoom();
+  window.addEventListener('scroll', request, { passive: true });
+  window.addEventListener('resize', request);
+  update();
 }
+
+// hero -> "Nos Transformations" gallery
+setupPinnedUnzoom(
+  document.querySelector('.hero'),
+  document.querySelector('.gallery'),
+  'hero'
+);
+
+// Instagram section -> footer
+setupPinnedUnzoom(
+  document.querySelector('.instagram-inner'),
+  document.querySelector('.site-footer'),
+  'insta'
+);
