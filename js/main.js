@@ -174,3 +174,49 @@ setupPinnedUnzoom(
   document.querySelector('.site-footer'),
   'insta'
 );
+
+// Floating WhatsApp chat widget — the toggle morphs between the WhatsApp
+// glyph and an X, opening/closing the popup (card + "Discutez avec moi").
+// It auto-opens once shortly after load to invite contact, but if the
+// visitor dismisses it we remember that for the session so it doesn't nag.
+const waWidget = document.querySelector('.whatsapp-widget');
+if (waWidget) {
+  const waToggle = waWidget.querySelector('.whatsapp-toggle');
+
+  function setWhatsappOpen(open) {
+    waWidget.classList.toggle('is-open', open);
+    waToggle.setAttribute('aria-expanded', String(open));
+    waToggle.setAttribute(
+      'aria-label',
+      open ? 'Fermer la discussion' : 'Ouvrir la discussion WhatsApp'
+    );
+  }
+
+  waToggle.addEventListener('click', () => {
+    const willOpen = !waWidget.classList.contains('is-open');
+    setWhatsappOpen(willOpen);
+    // Remember a manual close so it stays collapsed for the rest of the visit.
+    if (willOpen) {
+      sessionStorage.removeItem('waDismissed');
+    } else {
+      sessionStorage.setItem('waDismissed', '1');
+    }
+  });
+
+  // Auto-open once after the visitor has been on the site for 45 seconds
+  // (a soft nudge to reach out), unless they've already dismissed it.
+  if (!sessionStorage.getItem('waDismissed')) {
+    window.setTimeout(() => setWhatsappOpen(true), 45000);
+  }
+}
+
+// Hero form scarcity count — shows a believable "X places left" that changes
+// automatically each month (same for every visitor within a given month).
+// It's a hand-tuned marketing figure, not a real inventory count: one value
+// per calendar month (Jan..Dec), picked by the visitor's current month.
+const heroPlacesEl = document.querySelector('#heroPlaces');
+if (heroPlacesEl) {
+  const PLACES_BY_MONTH = [5, 4, 6, 3, 7, 5, 4, 8, 6, 4, 5, 3];
+  const n = PLACES_BY_MONTH[new Date().getMonth()];
+  heroPlacesEl.textContent = n + (n > 1 ? ' places' : ' place');
+}
