@@ -177,11 +177,14 @@ setupPinnedUnzoom(
 
 // Floating WhatsApp chat widget — the toggle morphs between the WhatsApp
 // glyph and an X, opening/closing the popup (card + "Discutez avec moi").
-// It auto-opens once shortly after load to invite contact, but if the
-// visitor dismisses it we remember that for the session so it doesn't nag.
+// The widget only appears once the visitor has scrolled past the hero, and
+// after 45s on the site it auto-opens the popup once (a soft nudge). A manual
+// close is remembered for the session so it doesn't nag.
 const waWidget = document.querySelector('.whatsapp-widget');
 if (waWidget) {
   const waToggle = waWidget.querySelector('.whatsapp-toggle');
+  let waRevealed = false;
+  let waAutoOpenReady = false;
 
   function setWhatsappOpen(open) {
     waWidget.classList.toggle('is-open', open);
@@ -191,6 +194,45 @@ if (waWidget) {
       open ? 'Fermer la discussion' : 'Ouvrir la discussion WhatsApp'
     );
   }
+
+  // Auto-open once, only while the widget is actually visible and not dismissed.
+  function maybeAutoOpenWhatsapp() {
+    if (
+      waRevealed &&
+      waAutoOpenReady &&
+      !sessionStorage.getItem('waDismissed') &&
+      !waWidget.classList.contains('is-open')
+    ) {
+      waAutoOpenReady = false; // only nudge once
+      setWhatsappOpen(true);
+    }
+  }
+
+  // Reveal the widget once scrolled past (most of) the hero section.
+  let waTicking = false;
+  function updateWhatsappReveal() {
+    const shouldReveal = window.scrollY > window.innerHeight * 0.8;
+    if (shouldReveal === waRevealed) return;
+    waRevealed = shouldReveal;
+    waWidget.classList.toggle('is-revealed', shouldReveal);
+    if (shouldReveal) {
+      maybeAutoOpenWhatsapp();
+    } else {
+      setWhatsappOpen(false); // collapse the popup while it's hidden away
+    }
+  }
+  function requestWhatsappReveal() {
+    if (!waTicking) {
+      window.requestAnimationFrame(() => {
+        updateWhatsappReveal();
+        waTicking = false;
+      });
+      waTicking = true;
+    }
+  }
+  window.addEventListener('scroll', requestWhatsappReveal, { passive: true });
+  window.addEventListener('resize', requestWhatsappReveal);
+  updateWhatsappReveal();
 
   waToggle.addEventListener('click', () => {
     const willOpen = !waWidget.classList.contains('is-open');
@@ -203,10 +245,13 @@ if (waWidget) {
     }
   });
 
-  // Auto-open once after the visitor has been on the site for 45 seconds
-  // (a soft nudge to reach out), unless they've already dismissed it.
+  // After 45s on the site, arm the auto-open (fires as soon as the widget is
+  // visible), unless the visitor has already dismissed it this session.
   if (!sessionStorage.getItem('waDismissed')) {
-    window.setTimeout(() => setWhatsappOpen(true), 45000);
+    window.setTimeout(() => {
+      waAutoOpenReady = true;
+      maybeAutoOpenWhatsapp();
+    }, 45000);
   }
 }
 
