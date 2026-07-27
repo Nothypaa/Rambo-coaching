@@ -290,7 +290,7 @@ html {
   position: relative;
   z-index: 2;
   margin-top: -9rem;
-  transform: translateY(3rem);
+  transform: translateY(5.5rem);
 }
 
 .hero-logo {
@@ -339,6 +339,18 @@ html {
   text-transform: uppercase;
   color: var(--color-white);
   margin-bottom: 0.75rem;
+}
+
+.hero-subheading {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  line-height: 1.5;
+  max-width: 32rem;
+  color: var(--color-white);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .hero-cta {
