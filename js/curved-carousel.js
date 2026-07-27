@@ -193,10 +193,11 @@
       card.style.width = cardW + 'px';
       card.style.height = cardH + 'px';
 
+      const photoIndex = (i % GALLERY_IMAGES.length) + 1;
       const src = GALLERY_IMAGES[i % GALLERY_IMAGES.length];
       const img = document.createElement('img');
       img.src = src;
-      img.alt = '';
+      img.alt = 'Transformation physique n°' + photoIndex + ' - coach musculation Montpellier, perte de poids et prise de muscle';
       img.loading = 'lazy';
       // if a photo is missing, hide the <img> so the card still
       // shows as a clean dark placeholder (curve + motion visible)

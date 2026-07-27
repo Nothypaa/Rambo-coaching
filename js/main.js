@@ -82,12 +82,14 @@ if (instagramFeed) {
       const posts = data && Array.isArray(data.posts) ? data.posts : [];
       instagramFeed.innerHTML = posts
         .filter((p) => p && p.image)
-        .map((p) => {
+        .map((p, i) => {
           const link = p.link || PROFILE_URL;
+          const alt = 'Publication Instagram n°' + (i + 1) +
+            ' - coach sportif Montpellier (@rambo_coaching)';
           return (
             '<a href="' + link + '" class="instagram-post" target="_blank" ' +
             'rel="noopener noreferrer" aria-label="Voir la publication sur Instagram">' +
-            '<img src="' + p.image + '" alt="Publication Instagram Rambo Coaching">' +
+            '<img src="' + p.image + '" alt="' + alt + '">' +
             '<span class="instagram-post-overlay">' + INSTAGRAM_ICON + '</span>' +
             '</a>'
           );
