@@ -154,7 +154,11 @@ html {
   width: 100%;
   height: 2px;
   background-color: var(--color-dark);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease;
+}
+
+.navbar-toggle span:nth-child(2) {
+  transition: opacity 0.15s ease;
 }
 
 .navbar-toggle.is-active span:nth-child(1) {
@@ -282,7 +286,7 @@ html {
   position: absolute;
   inset: 0;
   background-color: var(--color-dark);
-  opacity: 0.5;
+  opacity: 0.65;
   z-index: 1;
 }
 
@@ -351,6 +355,13 @@ html {
   margin-bottom: 1.5rem;
 }
 
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
 .hero-cta {
   display: inline-block;
   margin-top: 2rem;
@@ -363,11 +374,24 @@ html {
   font-size: 1.1rem;
   letter-spacing: 0.03em;
   border-radius: 999px;
-  transition: opacity 0.2s ease;
+  border: 1px solid var(--color-red);
+  transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .hero-cta:hover {
   opacity: 0.85;
+}
+
+.hero-cta-outline {
+  background-color: transparent;
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.hero-cta-outline:hover {
+  background-color: var(--color-white);
+  color: var(--color-dark);
+  opacity: 1;
 }
 
 .qualify-cta {
@@ -520,6 +544,42 @@ html {
   .hero-content {
     margin-top: 0;
     transform: none;
+  }
+
+  /* Center the CTA buttons as a group (the old single button was centered
+     via inline-block + text-align; the flex wrapper needs this explicitly).
+     Stack them tightly: each .hero-cta's own margin-top (2rem, meant for
+     spacing the row above the subheading) was stacking on top of the group's
+     gap once the buttons wrapped to separate lines, causing a big gap
+     between the two buttons — zero it out per-button and control all
+     spacing via the group itself instead. */
+  .hero-cta-group {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .hero-cta-group .hero-cta {
+    margin-top: 0;
+  }
+
+  /* Smaller review badge on mobile. */
+  .hero-reviews {
+    padding: 0.3rem 0.75rem;
+    gap: 0.4rem;
+  }
+
+  .hero-reviews-google {
+    font-size: 0.8rem;
+  }
+
+  .hero-reviews-stars {
+    font-size: 0.9rem;
+  }
+
+  .hero-reviews-text {
+    font-size: 0.7rem;
   }
 }
 
