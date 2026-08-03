@@ -289,8 +289,6 @@ html {
 .hero-content {
   position: relative;
   z-index: 2;
-  margin-top: -9rem;
-  transform: translateY(5.5rem);
 }
 
 .hero-logo {
@@ -489,6 +487,20 @@ html {
   }
 }
 
+/* Desktop-only hero content offset — kept isolated so it never touches
+   mobile. Nudges the logo/reviews/H1/subheading/CTA block up from its
+   naturally-centered position within the tall desktop hero card. */
+@media (min-width: 769px) {
+  .hero-content {
+    margin-top: -9rem;
+    transform: translateY(5.5rem);
+  }
+}
+
+/* Mobile-only hero adjustments — kept isolated so it never touches desktop.
+   The hero card is much shorter here, so hero-content just flows naturally
+   centered (no offset) — the desktop transform above was clipping the CTA
+   button off the bottom edge on shorter phone screens. */
 @media (max-width: 768px) {
   .hero-wrapper {
     padding: 1rem;
@@ -503,6 +515,11 @@ html {
 
   .hero-logo {
     display: none;
+  }
+
+  .hero-content {
+    margin-top: 0;
+    transform: none;
   }
 }
 
