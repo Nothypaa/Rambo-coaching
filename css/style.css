@@ -913,6 +913,10 @@ html {
   .gallery {
     padding: 2.5rem 0;
   }
+
+  .gallery-ghost {
+    display: none;
+  }
 }
 
 /* ===== Lightbox (click a gallery photo to enlarge) ===== */
@@ -1326,6 +1330,13 @@ body.modal-open {
 
 .instagram-post:hover img {
   transform: scale(1.05);
+}
+
+/* Mobile-only — kept isolated so it never touches desktop */
+@media (max-width: 768px) {
+  .instagram-ghost {
+    display: none;
+  }
 }
 
 /* Desktop-only Instagram-feed layout — kept isolated so it never touches mobile */
