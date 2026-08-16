@@ -40,10 +40,10 @@
   // just before the carousel starts; these are the fallback defaults used
   // if that file can't be read.
   let GALLERY_IMAGES = [
-    'assets/images/gallery/gallery-1.jpg',
-    'assets/images/gallery/gallery-2.jpg',
-    'assets/images/gallery/gallery-3.jpg',
-    'assets/images/gallery/gallery-4.jpg'
+    'assets/images/gallery/perte-de-poids-montpellier.jpg',
+    'assets/images/gallery/musculation-montpellier.jpg',
+    'assets/images/gallery/coach-sportif-montpellier.jpg',
+    'assets/images/gallery/coach-de-musculation.jpg'
   ];
 
   const container = document.getElementById('curvedCarousel');
