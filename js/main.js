@@ -99,6 +99,105 @@ if (instagramFeed) {
     .catch(() => { /* leave the feed empty on failure */ });
 }
 
+// Profile / trust section — rendered from the CMS-editable data file
+// (data/profile.json): photo, bio blocks, stats and medal counts. Every
+// number and text string lives in that file so it can be updated without
+// touching markup. Leaves the section empty if the file is missing.
+const profileVisual = document.querySelector('#profileVisual');
+if (profileVisual) {
+  const escapeHtml = (value) =>
+    String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+
+  // Decorative only — the value + label beside each icon already say what it
+  // means, so alt="" keeps screen readers from announcing it twice (same
+  // convention as the qualify-list icons).
+  const statIcon = (image) =>
+    image
+      ? '<span class="profile-stat-icon">' +
+        '<img src="' + escapeHtml(image) + '" alt=""></span>'
+      : '';
+
+  fetch('data/profile.json')
+    .then((r) => (r.ok ? r.json() : Promise.reject()))
+    .then((data) => {
+      if (!data) return;
+
+      if (data.photo && data.photo.image) {
+        profileVisual.innerHTML =
+          '<img src="' + escapeHtml(data.photo.image) + '" alt="' +
+          escapeHtml(data.photo.alt || '') + '" class="profile-photo">';
+      }
+
+      const bio = document.querySelector('#profileBio');
+      if (bio && Array.isArray(data.bio)) {
+        bio.innerHTML = data.bio
+          .filter((b) => b && b.text)
+          .map(
+            (b) =>
+              '<div class="profile-bio-block">' +
+              '<h3 class="profile-bio-heading">' + escapeHtml(b.heading || '') + '</h3>' +
+              '<p class="profile-bio-text">' + escapeHtml(b.text) + '</p>' +
+              '</div>'
+          )
+          .join('');
+      }
+
+      const stats = document.querySelector('#profileStats');
+      if (stats && Array.isArray(data.stats)) {
+        stats.innerHTML = data.stats
+          .filter((s) => s && s.value)
+          .map(
+            (s) =>
+              '<div class="profile-stat">' +
+              statIcon(s.image) +
+              '<span class="profile-stat-value">' + escapeHtml(s.value) + '</span>' +
+              '<span class="profile-stat-label">' + escapeHtml(s.label || '') + '</span>' +
+              '</div>'
+          )
+          .join('');
+      }
+
+      const medals = document.querySelector('#profileMedals');
+      if (medals && Array.isArray(data.medals)) {
+        medals.innerHTML = data.medals
+          .filter((m) => m && m.image)
+          .map((m) => {
+            const years = Array.isArray(m.years) ? m.years : [];
+            return (
+              '<div class="profile-medal">' +
+              '<div class="profile-medal-head">' +
+              '<img src="' + escapeHtml(m.image) + '" alt="' +
+              escapeHtml(m.alt || '') + '" class="profile-medal-icon">' +
+              '<span class="profile-medal-count">&times;' + escapeHtml(m.count) + '</span>' +
+              '</div>' +
+              '<span class="profile-medal-label">' + escapeHtml(m.label || '') + '</span>' +
+              (years.length
+                ? '<ul class="profile-medal-years">' +
+                  years
+                    .map(
+                      (y) =>
+                        '<li>' +
+                        '<span class="profile-medal-year">' + escapeHtml(y.year) + '</span>' +
+                        '<span class="profile-medal-year-count">&times;' +
+                        escapeHtml(y.count) + '</span>' +
+                        '</li>'
+                    )
+                    .join('') +
+                  '</ul>'
+                : '') +
+              '</div>'
+            );
+          })
+          .join('');
+      }
+    })
+    .catch(() => { /* leave the section empty on failure */ });
+}
+
 // Phone inputs — format digits into pairs as the user types (e.g.
 // "0612345678" -> "06 12 34 56 78") so the number is easier to read.
 document.querySelectorAll('input[type="tel"]').forEach((input) => {

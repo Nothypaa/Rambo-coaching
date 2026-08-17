@@ -1393,6 +1393,7 @@ body.modal-open {
   /* Sections after the curtain must also sit above the pinned hero and
      stay opaque, so the hero never shows through once it's covered. */
   .qualify-wrapper,
+  .profile,
   .instagram {
     position: relative;
     z-index: 2;
@@ -1404,6 +1405,340 @@ body.modal-open {
      pricing section's opaque background. */
   .qualify-wrapper {
     z-index: 3;
+  }
+}
+
+/* ===== Profile / trust section ("qui suis-je") ===== */
+.profile {
+  background-color: var(--color-white);
+  padding: 4rem 1.5rem;
+  /* Clip the oversized ghost watermark so it never causes horizontal scroll. */
+  overflow: hidden;
+}
+
+.profile-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.profile-title {
+  position: relative;
+  display: block;
+  margin-bottom: 2.5rem;
+}
+
+/* Oversized outline-only watermark, anchored to the right of the section. */
+.profile-ghost {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 0;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.15);
+  pointer-events: none;
+}
+
+.profile-heading {
+  position: relative;
+  z-index: 1;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 5vw, 3.25rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.profile-heading span {
+  display: block;
+}
+
+.profile-heading-muted {
+  color: rgba(26, 26, 26, 0.3);
+}
+
+.profile-heading-bold {
+  color: var(--color-dark);
+}
+
+/* Mobile: photo on top, content stacked below. */
+.profile-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.profile-visual {
+  position: relative;
+}
+
+.profile-photo {
+  display: block;
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 16px;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.35);
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.profile-bio {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-bio-heading {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 4vw, 1.35rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-red);
+  margin-bottom: 0.5rem;
+}
+
+.profile-bio-text {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(26, 26, 26, 0.75);
+}
+
+/* Stats + medals: icon + number + label, not paragraphs.
+   The stats sit over the bottom of the photo on a scrim, so the numbers
+   stay legible over the image. */
+.profile-stats {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  padding: 3rem 0.75rem 1.1rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  /* Purely informational, so it never intercepts taps on the photo. */
+  pointer-events: none;
+}
+
+.profile-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+}
+
+.profile-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  margin-bottom: 0.2rem;
+  padding: 6px;
+}
+
+/* Source icons are black line-art, so flip them to white to read on the
+   red disc (same treatment as the qualify-list icons). */
+.profile-stat-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.profile-stat-value {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 6vw, 2.1rem);
+  line-height: 1;
+  color: var(--color-white);
+}
+
+.profile-stat-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.profile-medals {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.profile-medal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.profile-medal-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Full-colour on purpose: gold vs silver is the meaning, so these icons
+   never get the white-out filter used on the qualify-list icons. */
+.profile-medal-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.profile-medal-count {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 6vw, 2.1rem);
+  line-height: 1;
+  color: var(--color-dark);
+}
+
+.profile-medal-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: rgba(26, 26, 26, 0.55);
+}
+
+/* Year-by-year breakdown: one row per year, count on the right, so the
+   totals above are easy to scan back to. */
+.profile-medal-years {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
+}
+
+.profile-medal-years li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.4rem 0.25rem;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+.profile-medal-years li:last-child {
+  border-bottom: none;
+}
+
+.profile-medal-year {
+  color: rgba(26, 26, 26, 0.55);
+}
+
+.profile-medal-year-count {
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+/* Mobile-only — kept isolated so it never touches desktop. Matches the
+   gallery/Instagram sections, where the watermark is hidden on small screens. */
+@media (max-width: 768px) {
+  .profile-ghost {
+    display: none;
+  }
+}
+
+/* Desktop-only profile layout — kept isolated so it never touches mobile. */
+@media (min-width: 769px) {
+  .profile {
+    padding: 5rem 2rem;
+  }
+
+  .profile-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3.5rem;
+  }
+
+  .profile-visual {
+    flex: 0 0 40%;
+    position: sticky;
+    top: 6rem;
+  }
+
+  .profile-photo {
+    height: auto;
+    aspect-ratio: 4 / 5;
+    border-radius: 24px;
+  }
+
+  /* Roomier overlay + corners matching the larger desktop photo radius. */
+  .profile-stats {
+    gap: 1rem;
+    padding: 4rem 1.25rem 1.5rem;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+  }
+
+  .profile-stat-icon {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 0.25rem;
+    padding: 8px;
+  }
+
+  .profile-stat-label {
+    font-size: 0.85rem;
+  }
+
+  .profile-content {
+    flex: 1;
+    gap: 2.5rem;
+  }
+
+  .profile-bio-text {
+    font-size: 1.05rem;
+  }
+
+  .profile-medals {
+    gap: 2.5rem;
+  }
+
+  .profile-medal-icon {
+    width: 52px;
+    height: 52px;
   }
 }
 
@@ -1953,6 +2288,15 @@ body.modal-open {
 .whatsapp-widget.is-revealed {
   opacity: 1;
   transform: translateY(0);
+  /* The container's box is much larger than the visible button, because the
+     closed panel still takes up layout space above it. Keep the container
+     click-through and let the interactive children opt back in, otherwise
+     that invisible area swallows clicks meant for what sits underneath
+     (e.g. the footer social links). */
+  pointer-events: none;
+}
+
+.whatsapp-widget.is-revealed .whatsapp-toggle {
   pointer-events: auto;
 }
 

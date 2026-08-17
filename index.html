@@ -194,6 +194,33 @@
     </section>
   </div>
 
+  <!-- Profile / trust section — content is rendered from the CMS-editable
+       data file (data/profile.json) by js/main.js. -->
+  <section class="profile" id="about">
+    <div class="profile-inner">
+      <div class="profile-title">
+        <span class="profile-ghost" aria-hidden="true">Parcours</span>
+        <h2 class="profile-heading">
+          <span class="profile-heading-muted">Qui se cache</span>
+          <span class="profile-heading-bold">derrière Rambo Coaching</span>
+        </h2>
+      </div>
+
+      <div class="profile-layout">
+        <div class="profile-visual">
+          <div class="profile-photo-wrap" id="profileVisual"></div>
+          <!-- On desktop these sit over the photo; on mobile they flow
+               underneath it (see the media queries in style.css). -->
+          <div class="profile-stats" id="profileStats"></div>
+        </div>
+        <div class="profile-content">
+          <div class="profile-bio" id="profileBio"></div>
+          <div class="profile-medals" id="profileMedals"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="pricing" id="tarifs">
     <div class="pricing-inner">
       <div class="pricing-title">

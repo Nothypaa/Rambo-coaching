@@ -1,0 +1,59 @@
+{
+  "photo": {
+    "image": "assets/images/coach-musculation-montpellier-salle-de-sport.webp",
+    "alt": "Paul Rembauville, coach sportif et de musculation à Montpellier, en salle de sport"
+  },
+  "bio": [
+    {
+      "heading": "Athlète avant tout",
+      "text": "Le sport fait partie de ma vie depuis l'enfance. Il y a 10 ans, je découvre les sports de force : d'abord l'haltérophilie, jusqu'au niveau national, puis la force athlétique, où j'atteins dès ma première année un niveau international et le statut de sportif de haut niveau."
+    },
+    {
+      "heading": "De l'athlète au coach",
+      "text": "Ce statut m'a permis de réaliser un rêve de longue date : devenir coach. Depuis 4 ans, j'accompagne des athlètes en force athlétique et j'ai eu la chance de les voir progresser et performer."
+    },
+    {
+      "heading": "Aujourd'hui",
+      "text": "Mon objectif évolue vers la transformation physique, pour aider un maximum de personnes à se sentir mieux dans leur corps et leur quotidien."
+    }
+  ],
+  "stats": [
+    {
+      "image": "assets/icon/review.png",
+      "value": "4+",
+      "label": "ans de coaching"
+    },
+    {
+      "image": "assets/icon/hand.png",
+      "value": "30+",
+      "label": "clients accompagnés"
+    }
+  ],
+  "medals": [
+    {
+      "image": "assets/icon/gold-medal.webp",
+      "alt": "Médaille d'or - 4 titres de champion remportés en force athlétique",
+      "count": 4,
+      "label": "Titres de champion",
+      "years": [
+        { "year": "2019", "count": 1 },
+        { "year": "2021", "count": 1 },
+        { "year": "2022", "count": 1 },
+        { "year": "2024", "count": 1 }
+      ]
+    },
+    {
+      "image": "assets/icon/2nd-place.webp",
+      "alt": "Médaille d'argent - 7 titres de vice-champion remportés en force athlétique",
+      "count": 7,
+      "label": "Titres de vice-champion",
+      "years": [
+        { "year": "2021", "count": 2 },
+        { "year": "2022", "count": 2 },
+        { "year": "2023", "count": 1 },
+        { "year": "2024", "count": 1 },
+        { "year": "2025", "count": 1 }
+      ]
+    }
+  ]
+}
