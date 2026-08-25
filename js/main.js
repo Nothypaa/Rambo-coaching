@@ -89,7 +89,7 @@ if (instagramFeed) {
           return (
             '<a href="' + link + '" class="instagram-post" target="_blank" ' +
             'rel="noopener noreferrer" aria-label="Voir la publication sur Instagram">' +
-            '<img src="' + p.image + '" alt="' + alt + '">' +
+            '<img src="' + p.image + '" alt="' + alt + '" loading="lazy">' +
             '<span class="instagram-post-overlay">' + INSTAGRAM_ICON + '</span>' +
             '</a>'
           );
@@ -118,7 +118,7 @@ if (profileVisual) {
   const statIcon = (image) =>
     image
       ? '<span class="profile-stat-icon">' +
-        '<img src="' + escapeHtml(image) + '" alt=""></span>'
+        '<img src="' + escapeHtml(image) + '" alt="" loading="lazy"></span>'
       : '';
 
   fetch('data/profile.json')
@@ -129,7 +129,7 @@ if (profileVisual) {
       if (data.photo && data.photo.image) {
         profileVisual.innerHTML =
           '<img src="' + escapeHtml(data.photo.image) + '" alt="' +
-          escapeHtml(data.photo.alt || '') + '" class="profile-photo">';
+          escapeHtml(data.photo.alt || '') + '" class="profile-photo" loading="lazy">';
       }
 
       const bio = document.querySelector('#profileBio');
@@ -171,7 +171,7 @@ if (profileVisual) {
               '<div class="profile-medal">' +
               '<div class="profile-medal-head">' +
               '<img src="' + escapeHtml(m.image) + '" alt="' +
-              escapeHtml(m.alt || '') + '" class="profile-medal-icon">' +
+              escapeHtml(m.alt || '') + '" class="profile-medal-icon" loading="lazy">' +
               '<span class="profile-medal-count">&times;' + escapeHtml(m.count) + '</span>' +
               '</div>' +
               '<span class="profile-medal-label">' + escapeHtml(m.label || '') + '</span>' +
