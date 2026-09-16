@@ -1636,8 +1636,12 @@ body.modal-open {
   object-fit: contain;
 }
 
+/* Flex column so each row's `order` (set in JS) applies: on mobile the list
+   reads most recent first. */
 .palmares-list {
   list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .palmares-row {
@@ -1737,8 +1741,11 @@ body.modal-open {
 
   /* Two columns halve the height on wide screens. CSS columns (not grid) so
      the list still reads top-to-bottom down column one, then column two —
-     which keeps the Monde / Europe / France grouping intact. */
+     which keeps the Monde / Europe / France grouping intact. Multi-column
+     layout also ignores the rows' `order`, so the authored order stands here
+     while mobile stays most-recent-first. */
   .palmares-list {
+    display: block;
     columns: 2;
     column-gap: 2rem;
   }

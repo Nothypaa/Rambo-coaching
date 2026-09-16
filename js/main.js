@@ -183,8 +183,19 @@ if (profileVisual) {
           })
           .join('');
 
+        // Mobile shows the list most-recent-first, desktop keeps the authored
+        // Monde/Europe/France grouping. Rather than render twice, each row
+        // carries its recency rank as a flex `order`: the mobile list is a
+        // flex column (honours `order`), the desktop one uses CSS columns
+        // (ignores it, so DOM order stands). Ties keep their authored order.
+        const recencyRank = new Map();
+        titles
+          .map((t, i) => ({ t, i }))
+          .sort((a, b) => (Number(b.t.year) || 0) - (Number(a.t.year) || 0) || a.i - b.i)
+          .forEach(({ i }, rank) => recencyRank.set(i, rank));
+
         const rows = titles
-          .map((t) => {
+          .map((t, i) => {
             const icon = icons[t.rank] || {};
             // alt="" — "Champion"/"Vice champion" in the row text already says
             // which medal it is, so the image would just repeat it.
@@ -194,7 +205,7 @@ if (profileVisual) {
               : '';
             const meta = [t.category, t.year].filter(Boolean).join(' · ');
             return (
-              '<li class="palmares-row">' +
+              '<li class="palmares-row" style="order:' + recencyRank.get(i) + '">' +
               medal +
               '<span class="palmares-name">' + escapeHtml(t.title) + '</span>' +
               (meta ? '<span class="palmares-meta">' + escapeHtml(meta) + '</span>' : '') +
