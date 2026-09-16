@@ -161,38 +161,55 @@ if (profileVisual) {
           .join('');
       }
 
+      // Palmarès: one tight row per title, with the gold/silver tally counted
+      // from the list itself so the totals can never drift from the entries.
       const medals = document.querySelector('#profileMedals');
-      if (medals && Array.isArray(data.medals)) {
-        medals.innerHTML = data.medals
-          .filter((m) => m && m.image)
-          .map((m) => {
-            const years = Array.isArray(m.years) ? m.years : [];
+      if (medals && Array.isArray(data.palmares)) {
+        const icons = data.medalIcons || {};
+        const titles = data.palmares.filter((t) => t && t.title);
+
+        const tally = ['or', 'argent']
+          .map((rank) => {
+            const count = titles.filter((t) => t.rank === rank).length;
+            const icon = icons[rank];
+            if (!count || !icon || !icon.image) return '';
             return (
-              '<div class="profile-medal">' +
-              '<div class="profile-medal-head">' +
-              '<img src="' + escapeHtml(m.image) + '" alt="' +
-              escapeHtml(m.alt || '') + '" class="profile-medal-icon" loading="lazy">' +
-              '<span class="profile-medal-count">&times;' + escapeHtml(m.count) + '</span>' +
-              '</div>' +
-              '<span class="profile-medal-label">' + escapeHtml(m.label || '') + '</span>' +
-              (years.length
-                ? '<ul class="profile-medal-years">' +
-                  years
-                    .map(
-                      (y) =>
-                        '<li>' +
-                        '<span class="profile-medal-year">' + escapeHtml(y.year) + '</span>' +
-                        '<span class="profile-medal-year-count">&times;' +
-                        escapeHtml(y.count) + '</span>' +
-                        '</li>'
-                    )
-                    .join('') +
-                  '</ul>'
-                : '') +
-              '</div>'
+              '<span class="palmares-tally-item">' +
+              '<img src="' + escapeHtml(icon.image) + '" alt="' +
+              escapeHtml(icon.alt || '') + '" loading="lazy">' +
+              escapeHtml(count) +
+              '</span>'
             );
           })
           .join('');
+
+        const rows = titles
+          .map((t) => {
+            const icon = icons[t.rank] || {};
+            // alt="" — "Champion"/"Vice champion" in the row text already says
+            // which medal it is, so the image would just repeat it.
+            const medal = icon.image
+              ? '<img class="palmares-medal" src="' + escapeHtml(icon.image) +
+                '" alt="" loading="lazy">'
+              : '';
+            const meta = [t.category, t.year].filter(Boolean).join(' · ');
+            return (
+              '<li class="palmares-row">' +
+              medal +
+              '<span class="palmares-name">' + escapeHtml(t.title) + '</span>' +
+              (meta ? '<span class="palmares-meta">' + escapeHtml(meta) + '</span>' : '') +
+              '</li>'
+            );
+          })
+          .join('');
+
+        medals.innerHTML =
+          '<div class="palmares-head">' +
+          '<span class="palmares-heading">' +
+          escapeHtml(data.palmaresTitle || 'Palmarès') + '</span>' +
+          '<span class="palmares-tally">' + tally + '</span>' +
+          '</div>' +
+          '<ul class="palmares-list">' + rows + '</ul>';
       }
     })
     .catch(() => { /* leave the section empty on failure */ });

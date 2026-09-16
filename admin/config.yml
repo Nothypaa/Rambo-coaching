@@ -63,25 +63,40 @@ collections:
               - { label: "Icône", name: "image", widget: "image" }
               - { label: "Nombre", name: "value", widget: "string" }
               - { label: "Libellé", name: "label", widget: "string" }
-          - label: "Médailles"
-            name: "medals"
-            label_singular: "Médaille"
-            widget: "list"
-            summary: "{{fields.label}} ({{fields.count}})"
+          - { label: "Titre du palmarès", name: "palmaresTitle", widget: "string" }
+          - label: "Icônes de médaille"
+            name: "medalIcons"
+            widget: "object"
             fields:
-              - { label: "Icône", name: "image", widget: "image" }
-              - { label: "Texte alternatif", name: "alt", widget: "string" }
-              - { label: "Nombre", name: "count", widget: "number", value_type: "int" }
-              - { label: "Libellé", name: "label", widget: "string" }
-              - label: "Détail par année"
-                name: "years"
-                label_singular: "Année"
-                widget: "list"
-                required: false
-                summary: "{{fields.year}} — {{fields.count}}"
+              - label: "Or"
+                name: "or"
+                widget: "object"
                 fields:
-                  - { label: "Année", name: "year", widget: "string" }
-                  - { label: "Nombre", name: "count", widget: "number", value_type: "int" }
+                  - { label: "Icône", name: "image", widget: "image" }
+                  - { label: "Texte alternatif", name: "alt", widget: "string" }
+              - label: "Argent"
+                name: "argent"
+                widget: "object"
+                fields:
+                  - { label: "Icône", name: "image", widget: "image" }
+                  - { label: "Texte alternatif", name: "alt", widget: "string" }
+          # Les totaux or/argent affichés en haut du palmarès sont comptés
+          # automatiquement à partir de cette liste.
+          - label: "Palmarès"
+            name: "palmares"
+            label_singular: "Titre"
+            widget: "list"
+            summary: "{{fields.title}} — {{fields.category}} ({{fields.year}})"
+            fields:
+              - label: "Médaille"
+                name: "rank"
+                widget: "select"
+                options:
+                  - { label: "Or", value: "or" }
+                  - { label: "Argent", value: "argent" }
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Catégorie", name: "category", widget: "string" }
+              - { label: "Année", name: "year", widget: "string" }
 
   - name: "instagram"
     label: "Publications Instagram"

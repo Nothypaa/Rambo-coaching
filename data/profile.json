@@ -29,31 +29,28 @@
       "label": "clients accompagnés"
     }
   ],
-  "medals": [
-    {
+  "medalIcons": {
+    "or": {
       "image": "assets/icon/gold-medal.webp",
-      "alt": "Médaille d'or - 4 titres de champion remportés en force athlétique",
-      "count": 4,
-      "label": "Titres de champion",
-      "years": [
-        { "year": "2019", "count": 1 },
-        { "year": "2021", "count": 1 },
-        { "year": "2022", "count": 1 },
-        { "year": "2024", "count": 1 }
-      ]
+      "alt": "Médaille d'or"
     },
-    {
+    "argent": {
       "image": "assets/icon/2nd-place.webp",
-      "alt": "Médaille d'argent - 7 titres de vice-champion remportés en force athlétique",
-      "count": 7,
-      "label": "Titres de vice-champion",
-      "years": [
-        { "year": "2021", "count": 2 },
-        { "year": "2022", "count": 2 },
-        { "year": "2023", "count": 1 },
-        { "year": "2024", "count": 1 },
-        { "year": "2025", "count": 1 }
-      ]
+      "alt": "Médaille d'argent"
     }
+  },
+  "palmaresTitle": "Palmarès",
+  "palmares": [
+    { "rank": "argent", "title": "Vice champion du Monde", "category": "-74kg open", "year": "2021" },
+    { "rank": "argent", "title": "Vice champion du Monde", "category": "-74kg open", "year": "2022" },
+    { "rank": "or", "title": "Champion d'Europe", "category": "-74kg junior", "year": "2019" },
+    { "rank": "argent", "title": "Vice champion d'Europe", "category": "-74kg open", "year": "2021" },
+    { "rank": "argent", "title": "Vice champion d'Europe", "category": "-74kg open", "year": "2022" },
+    { "rank": "argent", "title": "Vice champion d'Europe", "category": "-83kg open", "year": "2024" },
+    { "rank": "argent", "title": "Vice champion d'Europe", "category": "-83kg open", "year": "2025" },
+    { "rank": "or", "title": "Champion de France open", "category": "-74kg", "year": "2021" },
+    { "rank": "or", "title": "Champion de France open", "category": "-74kg", "year": "2022" },
+    { "rank": "argent", "title": "Vice champion de France open", "category": "-83kg", "year": "2023" },
+    { "rank": "or", "title": "Champion de France open", "category": "-83kg", "year": "2024" }
   ]
 }
