@@ -6,7 +6,10 @@ backend:
   base_url: https://rambo-coaching.vercel.app
   auth_endpoint: /api/auth
 
-# Where images uploaded through the CMS are stored / referenced from.
+# Where images uploaded through the CMS are stored / referenced from, unless
+# the field sets its own media_folder. Image values must start with "/":
+# Sveltia CMS reads a path without one as relative to the JSON file, and then
+# can't find the image to preview it.
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
@@ -29,7 +32,7 @@ collections:
             widget: "list"
             summary: "{{fields.image}}"
             fields:
-              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Image", name: "image", widget: "image", media_folder: "/assets/images/gallery" }
 
   - name: "profile"
     label: "À propos (parcours, chiffres, médailles)"
@@ -44,7 +47,7 @@ collections:
             name: "photo"
             widget: "object"
             fields:
-              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Image", name: "image", widget: "image", media_folder: "/assets/images" }
               - { label: "Texte alternatif", name: "alt", widget: "string" }
           - label: "Parcours"
             name: "bio"
@@ -60,7 +63,7 @@ collections:
             widget: "list"
             summary: "{{fields.value}} {{fields.label}}"
             fields:
-              - { label: "Icône", name: "image", widget: "image" }
+              - { label: "Icône", name: "image", widget: "image", media_folder: "/assets/icon" }
               - { label: "Nombre", name: "value", widget: "string" }
               - { label: "Libellé", name: "label", widget: "string" }
           - { label: "Titre du palmarès", name: "palmaresTitle", widget: "string" }
@@ -72,13 +75,13 @@ collections:
                 name: "or"
                 widget: "object"
                 fields:
-                  - { label: "Icône", name: "image", widget: "image" }
+                  - { label: "Icône", name: "image", widget: "image", media_folder: "/assets/icon" }
                   - { label: "Texte alternatif", name: "alt", widget: "string" }
               - label: "Argent"
                 name: "argent"
                 widget: "object"
                 fields:
-                  - { label: "Icône", name: "image", widget: "image" }
+                  - { label: "Icône", name: "image", widget: "image", media_folder: "/assets/icon" }
                   - { label: "Texte alternatif", name: "alt", widget: "string" }
           # Les totaux or/argent affichés en haut du palmarès sont comptés
           # automatiquement à partir de cette liste.

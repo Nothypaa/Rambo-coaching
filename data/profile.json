@@ -1,6 +1,6 @@
 {
   "photo": {
-    "image": "assets/images/coach-musculation-montpellier-salle-de-sport.webp",
+    "image": "/assets/images/coach-musculation-montpellier-salle-de-sport.webp",
     "alt": "Paul Rembauville, coach sportif et de musculation à Montpellier, en salle de sport"
   },
   "bio": [
@@ -19,23 +19,23 @@
   ],
   "stats": [
     {
-      "image": "assets/icon/review.png",
+      "image": "/assets/icon/review.png",
       "value": "4+",
       "label": "ans de coaching"
     },
     {
-      "image": "assets/icon/hand.png",
+      "image": "/assets/icon/hand.png",
       "value": "70+",
       "label": "clients accompagnés"
     }
   ],
   "medalIcons": {
     "or": {
-      "image": "assets/icon/gold-medal.webp",
+      "image": "/assets/icon/gold-medal.webp",
       "alt": "Médaille d'or"
     },
     "argent": {
-      "image": "assets/icon/2nd-place.webp",
+      "image": "/assets/icon/2nd-place.webp",
       "alt": "Médaille d'argent"
     }
   },

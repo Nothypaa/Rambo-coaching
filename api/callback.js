@@ -1,6 +1,6 @@
-// Completes the GitHub OAuth flow for Decap CMS: exchanges the temporary
+// Completes the GitHub OAuth flow for Sveltia CMS: exchanges the temporary
 // code for an access token, then hands it back to the CMS window via
-// postMessage (the format Decap expects).
+// postMessage (the format Decap CMS defined and Sveltia CMS accepts).
 module.exports = async (req, res) => {
   const clientId = process.env.OAUTH_GITHUB_CLIENT_ID;
   const clientSecret = process.env.OAUTH_GITHUB_CLIENT_SECRET;

@@ -9,17 +9,13 @@
        trailing slash), which would make a relative "config.yml" resolve
        to /config.yml (404) instead of /admin/config.yml. -->
   <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
-  <!-- Brand-color override for the admin UI (top nav + sidebar). See the
-       file for how these hooks were found and why they're safe to rely on. -->
-  <link rel="stylesheet" href="/admin/admin-styles.css">
 </head>
 <body>
-  <!-- Decap CMS — the admin panel. Config is loaded from /admin/config.yml.
-       Pinned to an exact version (not a "^" range) so a new Decap release
-       can never silently break this panel again — 3.15.0 shipped with a
-       same-day list-widget crash (decaporg/decap-cms#7906–#7913); 3.14.0
-       is the last version before that regression. Bump this deliberately
-       after checking release notes, not automatically. -->
-  <script src="https://unpkg.com/decap-cms@3.14.0/dist/decap-cms.js"></script>
+  <!-- Sveltia CMS — the admin panel, a drop-in replacement for Decap CMS that
+       reads the same /admin/config.yml and logs in through the same GitHub
+       OAuth functions in /api. Pinned to an exact version: Sveltia releases
+       several times a week, so a new release must never reach this panel
+       unchecked. Bump this deliberately after checking release notes. -->
+  <script src="https://unpkg.com/@sveltia/cms@0.227.3/dist/sveltia-cms.js"></script>
 </body>
 </html>

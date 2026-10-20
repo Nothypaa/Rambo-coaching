@@ -1,4 +1,4 @@
-// Starts the GitHub OAuth flow for the Decap CMS admin login.
+// Starts the GitHub OAuth flow for the Sveltia CMS admin login.
 // Redirects the browser to GitHub's authorization page. GitHub then sends
 // the user back to /api/callback with a temporary code.
 module.exports = (req, res) => {
