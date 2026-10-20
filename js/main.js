@@ -39,11 +39,12 @@ function closeContactModal() {
   document.body.classList.remove('modal-open');
 }
 
-document.querySelectorAll('[data-open-contact]').forEach((trigger) => {
-  trigger.addEventListener('click', (e) => {
-    e.preventDefault();
-    openContactModal();
-  });
+// Delegated, so triggers rendered later from the data files (the offer
+// cards) open the modal too.
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('[data-open-contact]')) return;
+  e.preventDefault();
+  openContactModal();
 });
 
 contactModalClose.addEventListener('click', closeContactModal);
@@ -61,6 +62,13 @@ document.addEventListener('keydown', (e) => {
     closeContactModal();
   }
 });
+
+const escapeHtml = (value) =>
+  String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 
 // Instagram feed — rendered from the CMS-editable data file
 // (data/instagram.json). Each post is an image linking to Instagram, with
@@ -105,13 +113,6 @@ if (instagramFeed) {
 // touching markup. Leaves the section empty if the file is missing.
 const profileVisual = document.querySelector('#profileVisual');
 if (profileVisual) {
-  const escapeHtml = (value) =>
-    String(value)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-
   // Decorative only — the value + label beside each icon already say what it
   // means, so alt="" keeps screen readers from announcing it twice (same
   // convention as the qualify-list icons).
@@ -222,6 +223,115 @@ if (profileVisual) {
           '</div>' +
           '<ul class="palmares-list">' + rows + '</ul>';
       }
+    })
+    .catch(() => { /* leave the section empty on failure */ });
+}
+
+// Pricing section — rendered from the CMS-editable data file
+// (data/offers.json). Only the monthly and annual prices are entered: the
+// struck-through yearly total, the saving and the monthly equivalent are
+// worked out here, so they can never disagree with the prices. An offer with
+// a photo goes in the first row, one without in the text-only second row.
+const pricingCards = document.querySelector('#pricingCards');
+const pricingCardsText = document.querySelector('#pricingCardsText');
+if (pricingCards && pricingCardsText) {
+  const CHECK_ICON =
+    '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  // 2400 -> "2 400€", 127.5 -> "127,5€". The thousands space is made
+  // non-breaking so a price never splits across two lines.
+  const euros = (n) =>
+    n.toLocaleString('fr-FR', { maximumFractionDigits: 2 }).replace(/\s/g, ' ') + '€';
+
+  // A price as saved by the CMS: a positive number, or null when left empty.
+  const price = (value) => (Number(value) > 0 ? Number(value) : null);
+
+  const renderOffer = (o) => {
+    const monthly = price(o.monthlyPrice);
+    const annual = monthly ? price(o.annualPrice) : null;
+    const hasImage = Boolean(o.image);
+    let html = '';
+
+    html +=
+      '<h3 class="plan-name">' + escapeHtml(o.name) +
+      (o.nameDetail ? ' <span class="plan-name-sub">' + escapeHtml(o.nameDetail) + '</span>' : '') +
+      '</h3>';
+    if (o.description) html += '<p class="plan-desc">' + escapeHtml(o.description) + '</p>';
+
+    if (monthly) {
+      html +=
+        '<p class="plan-price"><span class="plan-amount">' + euros(monthly) +
+        '</span> <span class="plan-period">par mois</span></p>';
+    } else if (o.priceText) {
+      html +=
+        '<p class="plan-price"><span class="plan-amount plan-amount--text">' +
+        escapeHtml(o.priceText) + '</span></p>';
+    }
+    if (o.note) html += '<p class="plan-note">' + escapeHtml(o.note) + '</p>';
+
+    if (annual) {
+      const yearly = monthly * 12;
+      html +=
+        '<p class="plan-annual">' +
+        '<span class="plan-annual-lead">ou</span> ' +
+        (yearly > annual ? '<s class="plan-annual-strike">' + euros(yearly) + '</s> ' : '') +
+        '<span class="plan-annual-amount">' + euros(annual) + ' / an</span> ' +
+        (yearly > annual
+          ? '<span class="plan-annual-badge">Économise ' + euros(yearly - annual) + '</span>'
+          : '') +
+        '</p>' +
+        '<p class="plan-annual-sub">Soit ' + euros(annual / 12) + ' / mois</p>';
+    }
+
+    html += '<a href="#" class="plan-cta" data-open-contact>Commencer maintenant</a>';
+
+    const features = (Array.isArray(o.features) ? o.features : []).filter(Boolean);
+    if (features.length) {
+      if (!hasImage) html += '<p class="plan-features-title">Ce qui est inclus</p>';
+      html +=
+        '<ul class="plan-features">' +
+        features
+          .map(
+            (f) => '<li><span class="plan-feature-icon">' + CHECK_ICON + '</span>' + escapeHtml(f) + '</li>'
+          )
+          .join('') +
+        '</ul>';
+    }
+
+    if (o.option && o.option.text) {
+      html +=
+        '<p class="plan-option">' +
+        (o.option.label ? '<span class="plan-option-label">' + escapeHtml(o.option.label) + '</span>' : '') +
+        escapeHtml(o.option.text) + '</p>';
+    }
+
+    const classes =
+      'plan-card plan-card--' + (o.style === 'red' ? 'red' : 'light') +
+      (hasImage ? '' : ' plan-card--text');
+    return (
+      '<article class="' + classes + '">' +
+      '<div class="plan-content">' + html + '</div>' +
+      (hasImage
+        ? '<img src="' + escapeHtml(o.image) + '" alt="' + escapeHtml(o.imageAlt || '') +
+          '" class="plan-image" loading="lazy">'
+        : '') +
+      '</article>'
+    );
+  };
+
+  fetch('data/offers.json')
+    .then((r) => (r.ok ? r.json() : Promise.reject()))
+    .then((data) => {
+      const offers = (data && Array.isArray(data.offers) ? data.offers : []).filter(
+        (o) => o && o.name
+      );
+      const withImage = offers.filter((o) => o.image);
+      const textOnly = offers.filter((o) => !o.image);
+
+      pricingCards.innerHTML = withImage.map(renderOffer).join('');
+      pricingCards.hidden = !withImage.length;
+      pricingCardsText.innerHTML = textOnly.map(renderOffer).join('');
+      pricingCardsText.hidden = !textOnly.length;
     })
     .catch(() => { /* leave the section empty on failure */ });
 }

@@ -101,6 +101,89 @@ collections:
               - { label: "Catégorie", name: "category", widget: "string" }
               - { label: "Année", name: "year", widget: "string" }
 
+  - name: "tarifs"
+    label: "Tarifs (offres et prix)"
+    files:
+      - name: "offers"
+        label: "Offres"
+        file: "data/offers.json"
+        description: >-
+          Les offres affichées dans « Tarifs ». Pour une formule annuelle, saisis
+          seulement le prix par mois et le prix pour l'année : le prix barré,
+          l'économie et l'équivalent par mois sont calculés automatiquement.
+        editor:
+          preview: false
+        fields:
+          - label: "Offres"
+            name: "offers"
+            label_singular: "Offre"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Nom de l'offre", name: "name", widget: "string" }
+              - label: "Précision après le nom"
+                name: "nameDetail"
+                widget: "string"
+                required: false
+                hint: "Affichée en plus petit à côté du nom, ex. « (non compétition) ». Optionnel."
+              - { label: "Description", name: "description", widget: "text" }
+              - label: "Couleur de la carte"
+                name: "style"
+                widget: "select"
+                default: "light"
+                options:
+                  - { label: "Blanche", value: "light" }
+                  - { label: "Rouge", value: "red" }
+              - label: "Prix par mois (€)"
+                name: "monthlyPrice"
+                widget: "number"
+                value_type: "int"
+                min: 1
+                required: false
+                hint: "Laisse vide pour afficher un texte à la place du prix (champ suivant)."
+              - label: "Texte à la place du prix"
+                name: "priceText"
+                widget: "string"
+                required: false
+                hint: "Affiché seulement si le prix par mois est vide, ex. « Formule sur-mesure »."
+              - label: "Prix pour l'année, payée en une fois (€)"
+                name: "annualPrice"
+                widget: "number"
+                value_type: "int"
+                min: 1
+                required: false
+                hint: "Optionnel. Laisse vide s'il n'y a pas de formule annuelle."
+              - label: "Petite note sous le prix"
+                name: "note"
+                widget: "string"
+                required: false
+                hint: "Ex. « *Engagement initial de 3 mois, puis reconduction mensuelle. » Optionnel."
+              - label: "Ce qui est inclus"
+                name: "features"
+                label_singular: "Élément"
+                widget: "list"
+                field: { label: "Élément", name: "feature", widget: "string" }
+              - label: "Option"
+                name: "option"
+                widget: "object"
+                required: false
+                collapsed: true
+                hint: "Optionnel, ex. l'option nutrition. Laisse le texte vide pour ne rien afficher."
+                fields:
+                  - { label: "Nom de l'option", name: "label", widget: "string", required: false }
+                  - { label: "Texte", name: "text", widget: "text", required: false }
+              - label: "Photo"
+                name: "image"
+                widget: "image"
+                required: false
+                media_folder: "/assets/images"
+                hint: "Avec une photo, l'offre s'affiche en grand sur la première ligne. Sans photo, sur la deuxième ligne."
+              - label: "Description de la photo"
+                name: "imageAlt"
+                widget: "string"
+                required: false
+                hint: "Pour Google : décris ce qu'on voit sur la photo."
+
   - name: "instagram"
     label: "Publications Instagram"
     files:

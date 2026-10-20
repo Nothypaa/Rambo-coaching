@@ -1815,6 +1815,12 @@ body.modal-open {
   margin-bottom: 1.5rem;
 }
 
+/* A row with no offers in it (see data/offers.json) — display: grid above
+   would otherwise override the hidden attribute. */
+.pricing-cards[hidden] {
+  display: none;
+}
+
 .plan-card {
   display: flex;
   flex-direction: column-reverse;

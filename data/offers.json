@@ -1,0 +1,109 @@
+{
+  "offers": [
+    {
+      "name": "Coaching en distanciel",
+      "nameDetail": "",
+      "description": "Pour structurer et varier vos entraînements.",
+      "style": "light",
+      "monthlyPrice": 140,
+      "priceText": "",
+      "annualPrice": null,
+      "note": "*Engagement initial de 3 mois, puis reconduction mensuelle.",
+      "features": [
+        "Appel individuel de démarrage",
+        "Programme d'entraînement personnalisé et évolutif",
+        "Plan alimentaire avec quantités précises et 2 à 3 alternatives par repas",
+        "Suivi nutritionnel personnalisé et évolutif",
+        "Bilan complet toutes les deux semaines",
+        "Corrections techniques personnalisées",
+        "Ajustements réguliers selon les résultats",
+        "Accompagnement WhatsApp 6 j/7"
+      ],
+      "option": {
+        "label": "",
+        "text": ""
+      },
+      "image": "/assets/images/coaching-musculation-en-ligne-montpellier.webp",
+      "imageAlt": "Coach musculation Montpellier en distanciel - coaching en ligne avec Paul"
+    },
+    {
+      "name": "Coaching en présentiel",
+      "nameDetail": "",
+      "description": "Un accompagnement sur-mesure pour des objectifs précis.",
+      "style": "red",
+      "monthlyPrice": null,
+      "priceText": "Formule sur-mesure",
+      "annualPrice": null,
+      "note": "",
+      "features": [
+        "Tout du coaching en distanciel",
+        "Séances en présentiel",
+        "Suivi hebdomadaire",
+        "Ajustements en temps réel"
+      ],
+      "option": {
+        "label": "",
+        "text": ""
+      },
+      "image": "/assets/images/paul-with-client.webp",
+      "imageAlt": "Coach sportif Montpellier en présentiel - séance avec un client"
+    },
+    {
+      "name": "Force compétition",
+      "nameDetail": "",
+      "description": "Pour préparer ses compétitions avec une programmation précise, un suivi renforcé et une véritable stratégie de performance.",
+      "style": "red",
+      "monthlyPrice": 200,
+      "priceText": "",
+      "annualPrice": 2040,
+      "note": "*Engagement initial de 3 mois, puis reconduction mensuelle.",
+      "features": [
+        "Appel individuel de démarrage",
+        "Programmation 100 % individualisée et évolutive",
+        "Retours personnalisés sur les entraînements, deux fois par semaine",
+        "Corrections techniques personnalisées",
+        "Ajustements selon les performances et la récupération",
+        "Gestion de la fatigue et adaptation des charges",
+        "Échanges WhatsApp 6 j/7",
+        "Accès au groupe privé des athlètes",
+        "Visio de groupe mensuelle",
+        "Stratégie de catégorie et de pesée",
+        "Planification du peaking",
+        "Sélection des essais et stratégie de compétition",
+        "Échauffements personnalisés pour le jour J",
+        "Débriefing après chaque compétition"
+      ],
+      "option": {
+        "label": "Option nutrition",
+        "text": "Plan alimentaire avec quantités précises et 2 à 3 alternatives par repas : 80€ le premier mois, puis 30€/mois (410€ sur 12 mois)."
+      },
+      "image": "",
+      "imageAlt": ""
+    },
+    {
+      "name": "Force progression",
+      "nameDetail": "(non compétition)",
+      "description": "Pour devenir plus fort·e, améliorer sa technique et suivre une programmation structurée, sans objectif de compétition immédiat.",
+      "style": "light",
+      "monthlyPrice": 150,
+      "priceText": "",
+      "annualPrice": 1500,
+      "note": "*Engagement initial de 3 mois, puis reconduction mensuelle.",
+      "features": [
+        "Appel individuel de démarrage",
+        "Programmation individualisée et évolutive",
+        "Bilan hebdomadaire",
+        "Corrections techniques personnalisées",
+        "Ajustements selon les performances et la récupération",
+        "Échanges WhatsApp 6 j/7",
+        "Accès au groupe privé des athlètes"
+      ],
+      "option": {
+        "label": "Option nutrition",
+        "text": "Plan alimentaire avec quantités précises et 2 à 3 alternatives par repas : 80€ le premier mois, puis 30€/mois (410€ sur 12 mois)."
+      },
+      "image": "",
+      "imageAlt": ""
+    }
+  ]
+}
