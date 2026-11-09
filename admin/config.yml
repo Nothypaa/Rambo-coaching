@@ -2,9 +2,9 @@ backend:
   name: github
   repo: Nothypaa/Rambo-coaching
   branch: main
-  # OAuth login handled by the serverless functions in /api on Vercel.
-  base_url: https://rambo-coaching.vercel.app
-  auth_endpoint: /api/auth
+  # Sign in with a GitHub access token ("Se connecter avec un jeton d'accès").
+  # There is no OAuth server: the old /api/auth + /api/callback pair handed the
+  # GitHub token to any page that asked for it, and was removed.
 
 # Where images uploaded through the CMS are stored / referenced from, unless
 # the field sets its own media_folder. Image values must start with "/":
